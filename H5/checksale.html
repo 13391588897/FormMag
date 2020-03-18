@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>销售对账</title>
+
+    <link href="bs/css/bootstrap.min.css" rel="stylesheet">
+   <!--  <link href="bs/css/bootstrap-datetimepicker.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="lib/css/reconciliationMag.css">
+  </head>
+  <body>
+    <div class="container  mt-10" id="container">
+    	<div class="formName"></div>
+    	<div id="getBaseInformation" class="row"></div>
+		<table id="conformTable" class="table table-striped table-bordered table-hover" border="1">
+	        <thead id="conformThead">
+	          <!-- <tr>
+	            <th>现金</th> 
+	            <th>银行卡</th>
+	            <th>微信</th>
+	            <th>现金</th>
+	            <th>银行卡</th>
+	            <th>微信</th>
+	            <th>支付宝</th>
+	            <th>合计</th>
+	            <th>签字</th>
+	          </tr> -->
+	        </thead>
+		
+	        <tbody id="conformTbody" class="conformTbody"></tbody>
+	        <!-- <tr>
+	          <td>item1</td>
+	          <td>item2</td>
+	          <td>item3</td>
+	          <td>item4</td>
+	          <td>item5</td>
+	          <td>item6</td>
+	          <td>item7</td>
+	          <td>item8</td>
+	        </tr> -->
+	        <tfoot id="conformTfoot"></tfoot>
+		</table>
+		<div>
+			说明事项：
+			<div id="remarkstext" class="w100 b1"></div>
+		</div>
+		<div class="mt-10">
+    		生成时间：
+    		<span id="timetext"></span>
+    	</div>
+    </div>
+    <div id="other">
+		<!-- <button class="mb-10" id="query">查询</button> -->
+		<button class="mb-10" id="printerForm" onclick="$('#container').print()">打印</button>
+		<button class="mb-10" id="exportForm" onclick="methodExport('container')">导出</button>
+    </div>
+    
+    <script src="jquery-3.1.0.js"></script>
+    <script src="bs/js/bootstrap.min.js"></script>
+    <!-- <script src="bs/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="bs/js/locales/bootstrap-datetimepicker.zh-CN.js"></script> -->
+    <script src="bs/js/jQuery.print.js"></script>
+    <script src="bs/js/export.js"></script>
+    <script src="lib/js/showSaleTable.js"></script>
+	<script>
+		$(document).ready(function(){
+            //判断设备是不是平板
+            var os = function() {
+			    var ua = navigator.userAgent,
+			        isWindowsPhone = /(?:Windows Phone)/.test(ua),
+			        isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+			        isAndroid = /(?:Android)/.test(ua),
+			        isFireFox = /(?:Firefox)/.test(ua),
+			        isChrome = /(?:Chrome|CriOS)/.test(ua),
+			        isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+			        isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+			        isPc = !isPhone && !isAndroid && !isSymbian;
+			    return {
+			        isTablet: isTablet,
+			        isPhone: isPhone,
+			        isAndroid: isAndroid,
+			        isPc: isPc
+			    };
+			}();
+			if(os.isAndroid || os.isPhone || os.isTablet) {
+			    $("#other").prop("display","none");
+			} 
+			/*if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+			   $("#other").attr("display","none");
+			}*/
+
+		})
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>选择页</title>
+
+    <link href="bs/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bs/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/css/reconciliationMag.css">
+  </head>
+  <body>
+
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+              <img alt="BESTSELLER" src="img/bestseller.png">
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container">
+        <div class="mb-10"><span>日期选择:</span>
+          <!-- <input type="text" id="datetimepicker" data-date-format="yyyy-mm-dd"> -->
+          <input size="16" type="text" id="datetimeStart" readonly class="form_datetime">
+          --
+          <input size="16" type="text" id="datetimeEnd" readonly class="form_datetime">
+        </div>
+        <div class="btn-group" role="group" aria-label="...">
+          <button type="button" class="btn btn-default" id="checkSale">商场销售对账</button>
+          <button type="button" class="btn btn-default" id="checkPay">商场支付对账</button>
+          <button type="button" class="btn btn-default" id="oriOrProm">正价促销汇总</button>
+        </div>
+      </div>
+
+    <script src="jquery-3.1.0.js"></script>
+    <script src="bs/js/bootstrap.min.js"></script>
+    <script src="bs/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="bs/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="lib/js/choose.js"></script>
+  </body>
+</html>

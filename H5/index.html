@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>见到你真高兴</title>
+
+    <link href="bs/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="bs/css/bootstrap-datetimepicker.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="lib/css/reconciliationMag.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head> 
+  <body>
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <img alt="BESTSELLER" src="img/bestseller.png">
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="row mb-10">
+        <div class="col-lg-8 col-sm-8">
+          <div class="btn-group">
+            <button id="shopList" type="button" class="btn btn-primary">店铺列表</button>
+             <button id="newBookBtn" type="button" class="btn btn-success">新增</button>
+            <!-- <button id="updateBookBtn" type="button" class="btn btn-warning" disabled>修改</button> -->
+            <button id="delBookBtn" type="button" class="btn btn-danger" disabled>删除</button>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-4">
+          <div class="input-group">
+            <input id="searchIpt" type="text" class="form-control" placeholder="多店铺代码查询请使用逗号隔开">
+            <span class="input-group-btn">
+              <button id="searchBtn" class="btn btn-info" type="button">搜索</button>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <table id="booksTable" class="table table-striped table-bordered table-hover mb-0">
+        <thead>
+          <tr>
+            <th class="w-30"><input id="chkAll" type="checkbox"></th>
+            <th>品牌</th>
+            <th>店铺代码</th>
+            <th>店铺名称</th>
+          </tr>
+        </thead>
+
+        <tbody></tbody>
+        <!-- <tr>
+          <td>item1</td>
+          <td>item2</td>
+        </tr> -->
+      </table>
+
+      <nav>
+        <div class="page-jumper">
+          <input id="jumpIpt" type="text" value="1">
+          <button id="jumpBtn">GO</button>
+        </div>
+
+        <ul id="pagingUl" class="pagination mt-10 pull-right">
+          <!-- <li>
+            <a href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li>
+            <a href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li> -->
+        </ul>
+      </nav>
+    </div>
+    
+    <!-- 对话框 -->
+    <div class="modal fade" id="bookDlg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+            <h4 class="modal-title" id="myModalLabel">配置详情</h4>
+          </div>
+
+          <div class="modal-body">
+            <!-- <div class="basic"> -->
+              <div>
+                <h4>基础信息:</h4>
+                <div>
+                  <span class="iconRed">*</span>
+                  <lable>报表名称：<input id="tableName" type="text"></lable>
+                </div>
+              </div>
+              <div class="row">
+                <h4 class="ml-15">发件人(From):</h4>
+                <div class="col-lg-4" style="height:25px">
+                  <span class="iconRed w3">*</span>
+                  <label>店铺代码：<input type="text" id="fShopCode"></label>
+                  <select id="fShopCodeNum" style="height: 90%">
+                    <option value="">序列</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    <option value="">6</option>
+                    <option value="">7</option>
+                    <option value="">8</option>
+                    <option value="">9</option>
+                    <option value="">10</option>
+                  </select>
+                </div>
+                <div class="col-lg-4" style="height:25px">
+                  <input type="checkbox" id="fShopNameChk">
+                  <label>店铺名称：<input type="text" id="fShopName"></label>
+                  <select id="fShopNameNum" style="height: 90%">
+                    <option value="">序列</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    <option value="">6</option>
+                    <option value="">7</option>
+                    <option value="">8</option>
+                    <option value="">9</option>
+                    <option value="">10</option>
+                  </select>
+                </div>
+                <div class="col-lg-4" style="height:25px">
+                  <input type="checkbox" id="fShopBrandChk">
+                  <label>品牌：<input type="text" id="fShopBrand"></label>
+                  <select id="fShopBrandNum" style="height: 90%">
+                    <option value="">序列</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    <option value="">6</option>
+                    <option value="">7</option>
+                    <option value="">8</option>
+                    <option value="">9</option>
+                    <option value="">10</option>
+                  </select>
+                </div>
+                <div class="col-lg-4" style="height:25px">
+                  <input type="checkbox" id="fShopPhoneChk">
+                  <label>店长电话：<input type="text" id="fShopPhone"></label>
+                  <select id="fShopPhoneNum" style="height: 90%">
+                    <option value="">序列</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    <option value="">6</option>
+                    <option value="">7</option>
+                    <option value="">8</option>
+                    <option value="">9</option>
+                    <option value="">10</option>
+                  </select>
+                </div>
+                <div class="col-lg-4" style="height:25px">
+                  <input type="checkbox" id="fShopCurrencyChk">
+                  <label>货币种类：<input type="text" id="fShopCurrency"></label>
+                  <select id="fShopCurrencyNum" style="height: 90%">
+                    <option value="">序列</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    <option value="">6</option>
+                    <option value="">7</option>
+                    <option value="">8</option>
+                    <option value="">9</option>
+                    <option value="">10</option>
+                  </select>
+                </div>
+                <div class="col-lg-4" style="height:25px">
+                  <input type="checkbox" id="fShopDanweiChk">
+                  <label>单位：<input type="text" id="fShopDanwei"></label>
+                  <select id="fShopDanweiNum" style="height: 90%">
+                    <option value="">序列</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    <option value="">6</option>
+                    <option value="">7</option>
+                    <option value="">8</option>
+                    <option value="">9</option>
+                    <option value="">10</option>
+                  </select>
+                </div>
+                <div class="col-lg-8" style="height:25px">
+                  <input type="checkbox" id="fShopCompanyChk">
+                  <label>公司名称：<input type="text" id="fShopCompany" class=""></label>
+                  <select id="fShopCompanyNum" style="height: 90%">
+                    <option value="">序列</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    <option value="">6</option>
+                    <option value="">7</option>
+                    <option value="">8</option>
+                    <option value="">9</option>
+                    <option value="">10</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <h4 class="ml-15">收件人(To):</h4>
+                <div class="col-lg-4" style="height:25px">
+                  <input type="checkbox" id="tShopChk">
+                  <label>收件人：<input type="text" id="tShop" class=""></label>
+                  <select id="tShopNum" style="height: 90%">
+                    <option value="">序列</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    <option value="">6</option>
+                    <option value="">7</option>
+                    <option value="">8</option>
+                    <option value="">9</option>
+                    <option value="">10</option>
+                  </select>
+                </div>
+                <div class="col-lg-4" style="height:25px">
+                  <input type="checkbox" id="tShopPhoneChk">
+                  <label>联系电话：<input type="text" id="tShopPhone"></label>
+                  <select id="tShopPhoneNum" style="height: 90%">
+                    <option value="">序列</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    <option value="">6</option>
+                    <option value="">7</option>
+                    <option value="">8</option>
+                    <option value="">9</option>
+                    <option value="">10</option>
+                  </select>
+                </div>
+                <div class="col-lg-4" style="height:25px">
+                  <input type="checkbox" id="tShopNumberChk">
+                  <label>商铺号：<input type="text" id="tShopNumber"></label>
+                  <select id="tShopNumberNum" style="height: 90%">
+                    <option value="">序列</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    <option value="">6</option>
+                    <option value="">7</option>
+                    <option value="">8</option>
+                    <option value="">9</option>
+                    <option value="">10</option>
+                  </select>
+                </div>
+                <div class="col-lg-4" style="height:25px">
+                  <input type="checkbox" id="tShopGroupChk">
+                  <label>柜组编号：<input type="text" id="tShopGroup"></label>
+                  <select id="tShopGroupNum" style="height: 90%">
+                    <option value="">序列</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    <option value="">6</option>
+                    <option value="">7</option>
+                    <option value="">8</option>
+                    <option value="">9</option>
+                    <option value="">10</option>
+                  </select>
+                </div>
+                <div class="col-lg-4" style="height:25px">
+                  <input type="checkbox" id="tShopNameChk">
+                  <label>商场名称：<input type="text" id="tShopName"></label>
+                  <select id="tShopNameNum" style="height: 90%">
+                    <option value="">序列</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                    <option value="">3</option>
+                    <option value="">4</option>
+                    <option value="">5</option>
+                    <option value="">6</option>
+                    <option value="">7</option>
+                    <option value="">8</option>
+                    <option value="">9</option>
+                    <option value="">10</option>
+                  </select>
+                </div>
+              </div>
+              <div class="dashed"></div>
+              <div>
+                <h4>模板明细：</h4>
+                <div>
+                  <div>
+                    <label for=""><input type="checkbox" id="checkSaleChk">销售对账样例</label>
+                    <!-- <span>销售对账样例</span> -->
+                  </div>
+                  <div class="ml-15">
+                    <h6>显示项</h6>
+                    <label for=""><input type="checkbox" id="checkSaleQtyChk">数量</label>
+                    <label for=""><input type="checkbox" id="checkSaleAmtChk">实收金额</label>
+                  </div>
+                  <div>
+                    <img src="img/checkSale.jpg" alt="">
+                  </div>
+                </div>
+
+                <div>
+                  <div>
+                    <input type="checkbox" id="checkPayChk">
+                    <span>支付对账样例</span>
+                  </div>
+                  <div>
+                    <img src="img/checkPay.jpg" alt="">
+                  </div>
+                </div>
+
+                <div>
+                  <div>
+                    <input type="checkbox" id="checkTotalChk">
+                    <span>正价汇总样例</span>
+                  </div>
+                  <div>
+                    <img src="img/normalTotal.jpg" alt="">
+                  </div>
+                </div>
+              </div>
+              <div class="dashed"></div>
+              <div>
+                <h4>说明事项</h4>
+                <textarea style="width:50%" id="remarks"></textarea>
+              </div>
+          </div>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button id="saveBtn" type="button" class="btn btn-primary w-110">提交</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 对话框 -->
+
+    <!-- loading -->
+    <div class="masker-wp">
+      <div class="masker"></div>
+      <div class="loading">
+        努力加载中……
+      </div>
+    </div>
+    <!-- loading -->
+
+    <script src="jquery-3.1.0.js"></script>
+    <script src="bs/js/bootstrap.min.js"></script>
+    <!-- <script src="bs/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="bs/js/locales/bootstrap-datetimepicker.zh-CN.js"></script> -->
+    <script src="lib/js/reconciliationMag.js"></script>
+  </body>
+</html>

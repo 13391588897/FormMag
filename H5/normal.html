@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>正价</title>
+
+    <link href="bs/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="lib/css/reconciliationMag.css">
+  </head>
+  <body>
+
+  	<nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <img alt="BESTSELLER" src="img/bestseller.png">
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <h3>正价促销汇总选择</h3>
+
+    <div class="container  mt-10" id="container">
+		<div>
+			<button class="mb-10" id="checkAll">全选</button>
+			<button class="mb-10" id="reverseCheck">反选</button>
+		</div>
+		<table id="promotionTable" class="table table-striped table-bordered table-hover" border="1">
+	        <thead id="promotionThead">
+	          <tr>
+	            <th>促销代码</th> 
+	            <th>促销说明</th>
+	            <th>选择</th>
+	          </tr>
+	        </thead>
+		
+	        <tbody id="promotionTbody" class="conformTbody"></tbody>
+	        <!-- <tr>
+	          <td>item1</td>
+	          <td>item2</td>
+	          <td>item3</td>
+	          <td>item4</td>
+	          <td>item5</td>
+	          <td>item6</td>
+	          <td>item7</td>
+	          <td>item8</td>
+	        </tr> -->
+	        <tfoot id="promotionTfoot"></tfoot>
+		</table>
+		<div class="fright">
+			<button class="mb-10" id="submitBtn">提交</button>
+			<button class="mb-10" id="gobackBtn">返回</button>
+		</div>
+	</div>
+    
+    
+    
+    <script src="jquery-3.1.0.js"></script>
+    <script src="bs/js/bootstrap.min.js"></script>
+    <script src="lib/js/normal.js"></script>
+	<script>
+		$(document).ready(function(){
+            //判断设备是不是平板
+            var os = function() {
+			    var ua = navigator.userAgent,
+			        isWindowsPhone = /(?:Windows Phone)/.test(ua),
+			        isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+			        isAndroid = /(?:Android)/.test(ua),
+			        isFireFox = /(?:Firefox)/.test(ua),
+			        isChrome = /(?:Chrome|CriOS)/.test(ua),
+			        isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+			        isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+			        isPc = !isPhone && !isAndroid && !isSymbian;
+			    return {
+			        isTablet: isTablet,
+			        isPhone: isPhone,
+			        isAndroid: isAndroid,
+			        isPc: isPc
+			    };
+			}();
+			if(os.isAndroid || os.isPhone || os.isTablet) {
+			    $("#other div.right").prop("display","none");
+			} 
+			/*if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+			   $("#other").attr("display","none");
+			}*/
+
+		})
+    </script>
+  </body>
+</html>
